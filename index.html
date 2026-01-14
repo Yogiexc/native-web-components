@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Native Web Components - Framework Agnostic UI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 60px;
+    }
+    
+    h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+    
+    .subtitle {
+      font-size: 20px;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+    
+    .demo-section {
+      margin-bottom: 40px;
+    }
+    
+    .demo-title {
+      color: white;
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .controls {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+    
+    .controls h3 {
+      margin-bottom: 16px;
+      color: #333;
+    }
+    
+    .control-group {
+      margin-bottom: 16px;
+    }
+    
+    .control-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+    
+    .control-group input,
+    .control-group select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    
+    .button-demo {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .badge-demo {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+    }
+    
+    code {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-top: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    footer {
+      text-align: center;
+      color: white;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🚀 Native Web Components</h1>
+      <p class="subtitle">Framework-Agnostic UI Development</p>
+      <p class="subtitle" style="margin-top: 8px; font-size: 16px;">
+        Building reusable UI using native Web Components to explore framework-agnostic frontend development.
+      </p>
+    </header>
+
+    <!-- Interactive Controls -->
+    <div class="controls">
+      <h3>🎛️ Interactive Demo - Update Card dengan JavaScript</h3>
+      
+      <div class="control-group">
+        <label for="cardTitle">Card Title:</label>
+        <input type="text" id="cardTitle" value="Interactive Card" placeholder="Enter card title">
+      </div>
+      
+      <div class="control-group">
+        <label for="cardTheme">Theme:</label>
+        <select id="cardTheme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="primary" selected>Primary</option>
+          <option value="success">Success</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label for="cardDesc">Description:</label>
+        <input type="text" id="cardDesc" value="This card updates in real-time!" placeholder="Enter description">
+      </div>
+      
+      <my-button variant="primary" id="updateBtn">
+        Update Card
+      </my-button>
+    </div>
+
+    <!-- Demo Cards Grid -->
+    <section class="demo-section">
+      <h2 class="demo-title">📦 Card Components - Different Themes</h2>
+      
+      <div class="grid">
+        <!-- Interactive Card (akan diupdate via JS) -->
+        <my-card 
+          id="interactiveCard"
+          title="Interactive Card" 
+          theme="primary"
+          description="This card updates in real-time!">
+          <div slot="content">
+            <p>Klik tombol di atas untuk mengubah card ini secara dinamis menggunakan JavaScript API.</p>
+            <my-badge variant="primary" pill>Interactive</my-badge>
+          </div>
+        </my-card>
+
+        <!-- Light Theme Card -->
+        <my-card 
+          title="Light Theme Card" 
+          theme="light"
+          description="Clean and minimal design for light interfaces">
+          <div slot="content">
+            <p>Perfect untuk aplikasi dengan light mode. Style terisolasi dalam Shadow DOM.</p>
+            <my-badge variant="info">Light Mode</my-badge>
+          </div>
+        </my-card>
+
+        <!-- Dark Theme Card -->
+        <my-card 
+          title="Dark Theme Card" 
+          theme="dark"
+          description="Elegant dark theme for modern applications">
+          <div slot="content">
+            <p>Ideal untuk dark mode UI. Semua style tidak akan bocor ke komponen lain.</p>
+            <my-badge variant="default">Dark Mode</my-badge>
+          </div>
+        </my-card>
+
+        <!-- Success Theme Card -->
+        <my-card 
+          title="Success Card" 
+          theme="success"
+          description="Gradient theme for positive messages">
+          <div slot="content">
+            <p>Gunakan untuk menampilkan success state atau achievement.</p>
+            <my-badge variant="success">Success</my-badge>
+          </div>
+        </my-card>
+
+        <!-- Card with Custom Content -->
+        <my-card 
+          title="Reusable Component" 
+          theme="light"
+          description="Flexible content via slots">
+          <div slot="content">
+            <ul style="margin-left: 20px; line-height: 1.8;">
+              <li>✅ Framework-agnostic</li>
+              <li>✅ Shadow DOM isolation</li>
+              <li>✅ Reusable anywhere</li>
+              <li>✅ No build tools needed</li>
+            </ul>
+          </div>
+        </my-card>
+
+        <!-- Card with Buttons -->
+        <my-card 
+          title="With Actions" 
+          theme="light"
+          description="Card dengan interactive buttons">
+          <div slot="content">
+            <p>Web Components bisa berisi komponen lain dan fully interactive.</p>
+            <div style="margin-top: 16px; display: flex; gap: 8px;">
+              <my-button variant="primary" size="small">Primary</my-button>
+              <my-button variant="danger" size="small">Delete</my-button>
+            </div>
+          </div>
+        </my-card>
+      </div>
+    </section>
+
+    <!-- Button Components Demo -->
+    <section class="demo-section">
+      <h2 class="demo-title">🔘 Button Components - Variants & Sizes</h2>
+      
+      <div class="button-demo">
+        <my-button variant="primary">Primary Button</my-button>
+        <my-button variant="secondary">Secondary</my-button>
+        <my-button variant="success">Success</my-button>
+        <my-button variant="danger">Danger</my-button>
+        <my-button variant="outline">Outline</my-button>
+      </div>
+
+      <div class="button-demo">
+        <my-button variant="primary" size="small">Small</my-button>
+        <my-button variant="primary" size="medium">Medium</my-button>
+        <my-button variant="primary" size="large">Large</my-button>
+        <my-button variant="primary" disabled>Disabled</my-button>
+      </div>
+    </section>
+
+    <!-- Badge Components Demo -->
+    <section class="demo-section">
+      <h2 class="demo-title">🏷️ Badge Components - Status Indicators</h2>
+      
+      <div class="badge-demo">
+        <my-badge variant="default">Default</my-badge>
+        <my-badge variant="primary">Primary</my-badge>
+        <my-badge variant="success">Success</my-badge>
+        <my-badge variant="warning">Warning</my-badge>
+        <my-badge variant="danger">Danger</my-badge>
+        <my-badge variant="info">Info</my-badge>
+      </div>
+
+      <div class="badge-demo">
+        <my-badge variant="primary" pill>Pill Badge</my-badge>
+        <my-badge variant="success" pill>Active</my-badge>
+        <my-badge variant="danger" pill>Critical</my-badge>
+      </div>
+    </section>
+
+    <!-- Usage Example -->
+    <section class="demo-section">
+      <h2 class="demo-title">📝 Cara Penggunaan</h2>
+      
+      <my-card title="HTML Usage" theme="dark">
+        <div slot="content">
+          <p style="margin-bottom: 12px;">Import komponen di HTML:</p>
+          <div class="code-block">&lt;script type="module" src="./components/my-card.js"&gt;&lt;/script&gt;
+&lt;script type="module" src="./components/my-button.js"&gt;&lt;/script&gt;
+
+&lt;my-card title="Hello World" theme="primary"&gt;
+  &lt;p&gt;Konten card di sini&lt;/p&gt;
+&lt;/my-card&gt;</div>
+        </div>
+      </my-card>
+
+      <my-card title="JavaScript API" theme="dark" style="margin-top: 24px;">
+        <div slot="content">
+          <p style="margin-bottom: 12px;">Manipulasi komponen via JavaScript:</p>
+          <div class="code-block">const card = document.querySelector('my-card');
+
+// Update via attribute
+card.setAttribute('title', 'New Title');
+card.setAttribute('theme', 'success');
+
+// Update via public API
+card.setTitle('Another Title');
+card.setTheme('dark');</div>
+        </div>
+      </my-card>
+    </section>
+
+    <footer>
+      <p style="font-size: 18px; margin-bottom: 8px;">
+        🌐 Web tanpa framework masih hidup & kuat
+      </p>
+      <p style="opacity: 0.8;">
+        Built with Web Platform APIs • No Framework • No Build Tools
+      </p>
+    </footer>
+  </div>
+
+  <!-- Import Web Components -->
+  <script type="module" src="./components/my-card.js"></script>
+  <script type="module" src="./components/my-button.js"></script>
+  <script type="module" src="./components/my-badge.js"></script>
+
+  <!-- Interactive Demo Script -->
+  <script>
+    // Wait for components to be defined
+    customElements.whenDefined('my-card').then(() => {
+      const interactiveCard = document.getElementById('interactiveCard');
+      const updateBtn = document.getElementById('updateBtn');
+      const titleInput = document.getElementById('cardTitle');
+      const themeSelect = document.getElementById('cardTheme');
+      const descInput = document.getElementById('cardDesc');
+
+      // Update card on button click
+      updateBtn.addEventListener('my-click', () => {
+        interactiveCard.setAttribute('title', titleInput.value);
+        interactiveCard.setAttribute('theme', themeSelect.value);
+        interactiveCard.setAttribute('description', descInput.value);
+        
+        console.log('Card updated!', {
+          title: titleInput.value,
+          theme: themeSelect.value,
+          description: descInput.value
+        });
+      });
+
+      // Demo: Log semua button clicks
+      document.querySelectorAll('my-button').forEach(btn => {
+        btn.addEventListener('my-click', (e) => {
+          console.log('Button clicked:', e.detail);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
